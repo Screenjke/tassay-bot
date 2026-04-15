@@ -1,4 +1,3 @@
-import os
 from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton
 from telegram.ext import (
     Application,
@@ -9,7 +8,7 @@ from telegram.ext import (
     filters,
 )
 
-TOKEN = os.getenv("BOT_TOKEN")
+TOKEN = os.getenv("8697150456:AAG3XFoicVatIkqpNc1WiPxgaYyB3n_RSns")
 ADMIN_ID = 584607403
 
 # Цена указана за 1 бутылку / 1 штуку
@@ -460,3 +459,18 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+import threading
+from http.server import BaseHTTPRequestHandler, HTTPServer
+
+class Handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"Bot is running")
+
+def run_server():
+    server = HTTPServer(("0.0.0.0", 10000), Handler)
+    server.serve_forever()
+
+threading.Thread(target=run_server).start()
