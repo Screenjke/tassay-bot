@@ -474,4 +474,6 @@ def run_server():
     server = HTTPServer(("0.0.0.0", 10000), Handler)
     server.serve_forever()
 
-threading.Thread(target=run_server).start()
+if __name__ == "__main__":
+    threading.Thread(target=run_server, daemon=True).start()
+    main()
