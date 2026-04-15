@@ -458,9 +458,6 @@ def main():
     app.run_polling()
 
 
-if __name__ == "__main__":
-    main()
-
 import threading
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
@@ -474,7 +471,6 @@ def run_server():
     server = HTTPServer(("0.0.0.0", 10000), Handler)
     server.serve_forever()
 
-import os
 import threading
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
