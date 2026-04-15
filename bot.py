@@ -1,3 +1,4 @@
+import os
 from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton
 from telegram.ext import (
     Application,
@@ -8,7 +9,7 @@ from telegram.ext import (
     filters,
 )
 
-TOKEN = os.getenv("8697150456:AAG3XFoicVatIkqpNc1WiPxgaYyB3n_RSns")
+TOKEN = os.getenv("BOT_TOKEN")
 ADMIN_ID = 584607403
 
 # Цена указана за 1 бутылку / 1 штуку
