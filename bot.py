@@ -1,4 +1,7 @@
 import os
+import threading
+from http.server import BaseHTTPRequestHandler, HTTPServer
+
 from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton
 from telegram.ext import (
     Application,
@@ -424,6 +427,9 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def main():
+    if not TOKEN:
+        raise ValueError("Не найден BOT_TOKEN в переменных окружения")
+
     app = Application.builder().token(TOKEN).build()
 
     order_handler = ConversationHandler(
@@ -458,32 +464,18 @@ def main():
     app.run_polling()
 
 
-import threading
-from http.server import BaseHTTPRequestHandler, HTTPServer
-
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         self.send_response(200)
         self.end_headers()
         self.wfile.write(b"Bot is running")
 
-def run_server():
-    server = HTTPServer(("0.0.0.0", 10000), Handler)
-    server.serve_forever()
-
-import threading
-from http.server import BaseHTTPRequestHandler, HTTPServer
-
-class Handler(BaseHTTPRequestHandler):
-    def do_GET(self):
-        self.send_response(200)
-        self.end_headers()
-        self.wfile.write(b"Bot is running")
 
 def run_server():
     port = int(os.getenv("PORT", "10000"))
     server = HTTPServer(("0.0.0.0", port), Handler)
     server.serve_forever()
+
 
 if __name__ == "__main__":
     threading.Thread(target=run_server, daemon=True).start()
